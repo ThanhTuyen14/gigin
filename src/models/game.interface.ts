@@ -3,6 +3,7 @@ export interface IGame {
     name: string;
     description: string;
     link: string;
+    img: string;
 }
 
 export interface ICard {

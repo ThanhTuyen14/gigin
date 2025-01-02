@@ -9,9 +9,17 @@ export const routes: Routes = [
         ),
     },
     {
-        path: 'game-list',
+        path: 'game',
         loadComponent: () => import('./components/relax-game/relax-game.component').then(
             (c) => c.RelaxGameComponent
         ),
+        children: [
+            {
+                path: 'memory-card',
+                loadComponent: () => import('./components/relax-game/memory-game/memory-game.component').then(
+                    (c) => c.MemoryGameComponent
+                ),
+            }
+        ]
     },
 ];

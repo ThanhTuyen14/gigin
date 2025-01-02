@@ -25,7 +25,7 @@ export const menuList: IMenu[] = [
   {
     id: 4,
     name: 'Relaxing Game',
-    link: '/game-list',
+    link: '/game',
   },
   {
     id: 5,
