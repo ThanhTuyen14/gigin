@@ -1,0 +1,23 @@
+<section class="container mx-auto banner p-6 md:flex text-center items-center">
+  <div class="mascot mx-auto lg:mr-6">
+    <img src="/assets/images/mascot/avatar.png" alt="GiGin" />
+  </div>
+  <div class="message flex-1 mt-3 lg:mt-0">
+    <h2 class="mb-3">Chào Mừng Bạn Đến Với Ngôi Nhà Của Gi Gin</h2>
+    <div class="w-4/5 mx-auto">
+      Một chiếc web nhỏ xinh, nơi có nhiều thứ xinh xinh.
+    </div>
+  </div>
+</section>
+<section class="body p-6">
+  <ul class="flex flex-wrap gap-4">
+    @for (item of menuList; track item.id) {
+    <button
+      *ngIf="!item.hide"
+      mat-flat-button
+      [routerLink]="item.link">
+      {{ item.name }}
+    </button>
+    }
+  </ul>
+</section>

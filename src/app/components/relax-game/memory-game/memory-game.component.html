@@ -1,0 +1,15 @@
+<p>memory-game works!</p>
+<div class="game-board">
+    @for(card of cards; track card.id) {
+        <div
+            class="grid grid-cols-4 sm:grid-cols-5 gap-4"
+            [class.revealed]="card.revealed || matchedCards.has(card.id)"
+            (click)="selectCard(card)">
+            @if(card.revealed || matchedCards.has(card.id)) {
+                <img [src]="'assets/images/cards/' + card.imageName" alt="card" />
+            } @else {
+                <div class="card-back"></div>
+            }
+        </div>
+    }
+</div>

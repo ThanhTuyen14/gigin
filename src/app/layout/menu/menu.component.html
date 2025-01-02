@@ -1,0 +1,13 @@
+<div class="menu-top">
+  <div class="logo"></div>
+  <menu class="menu-list">
+    @for (item of menuList; track item.id) {
+    <button
+      mat-button
+      [routerLink]="item.link">
+      {{ item.name }}
+    </button>
+    }
+  </menu>
+</div>
+  
