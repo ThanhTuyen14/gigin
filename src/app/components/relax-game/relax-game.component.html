@@ -1,17 +1,1 @@
-<section class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-    @for (item of gameList; track $index) {
-        <mat-card class="example-card" appearance="outlined">
-            <mat-card-header>
-                <mat-card-title>{{item.name}}</mat-card-title>
-            </mat-card-header>
-            <img mat-card-image [src]="item.img" [alt]="item.name">
-            <mat-card-content>
-                <p>{{item.description}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button [routerLink]="['/game/memory-card']" class="mr-auto">Play Game</button>
-                <button mat-button>Share</button>
-            </mat-card-actions>
-        </mat-card>
-    }
-</section>
+<router-outlet></router-outlet>

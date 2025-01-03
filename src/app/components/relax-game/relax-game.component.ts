@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import { IGame } from '../../../models/game.interface';
-import { RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-relax-game',
-  imports: [RouterModule, MatButtonModule, MatCardModule],
+  imports: [RouterOutlet],
   templateUrl: './relax-game.component.html',
-  styleUrl: './relax-game.component.scss'
+  styleUrl: './relax-game.component.scss',
 })
-export class RelaxGameComponent {
-  gameList: IGame[] = []
-}
+export class RelaxGameComponent {}

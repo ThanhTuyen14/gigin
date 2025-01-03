@@ -1,0 +1,54 @@
+.game-container {
+  max-width: 500px;
+  margin: 20px auto;
+  .card {
+    width: 100px;
+    height: 150px;
+    perspective: 1000px;
+    cursor: pointer;
+    &.flipped,
+    &.matched {
+      .card-front {
+        transform: rotateY(0);
+      }
+      .card-back {
+        transform: rotateY(180deg);
+      }
+    }
+    &.matched {
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .card-front,
+    .card-back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      transition: transform 0.5s;
+    }
+    .card-front {
+      transform: rotateY(180deg);
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+    }
+
+    .card-back {
+      background-color: var(--mat-sys-on-primary-container);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--mat-sys-primary);
+    }
+  }
+  @media screen and (max-width: 520px) {
+    max-width: 400px;
+  }
+  @media screen and (max-width: 420px) {
+    max-width: 300px;
+  }
+}

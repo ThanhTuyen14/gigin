@@ -1,69 +1,96 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ICard } from '../../../../models/game.interface';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-memory-game',
-  imports: [],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './memory-game.component.html',
-  styleUrl: './memory-game.component.scss'
+  styleUrl: './memory-game.component.scss',
 })
 export class MemoryGameComponent {
-  cards: ICard[] = [];
-  selectedCards: ICard[] = [];
-  matchedCards: Set<number> = new Set();
-  isProcessing: boolean = false;
-
-  images = [
-    'image1.png',
-    'image2.png',
-    'image3.png',
-    'image4.png',
-    'image5.png',
-    'image6.png',
-    'image7.png',
-    'image8.png',
-    'image9.png',
-    'image10.png',
+  images: string[] = [
+    '/assets/image1.png',
+    '/assets/image2.png',
+    '/assets/image3.png',
+    '/assets/image4.png',
+    '/assets/image5.png',
+    '/assets/image6.png',
+    '/assets/image6.png',
+    '/assets/image6.png',
+    '/assets/image6.png',
+    '/assets/image6.png',
   ];
+  cards: ICard[] = [];
+  flippedCards: ICard[] = [];
+  isBoardLocked: boolean = false;
 
   ngOnInit(): void {
-    this.initializeGame();
+    this.adjustCardsBasedOnScreenSize();
   }
 
-  initializeGame() {
-    this.cards = [...this.images, ...this.images]
-      .map((image, index) => ({ id: index, imageName: image, revealed: false }))
-      .sort(() => Math.random() - 0.5);
+  @HostListener('window:resize', [])
+  onResize(): void {
+    this.adjustCardsBasedOnScreenSize();
   }
 
-  selectCard(card: any) {
-    if (this.isProcessing || this.matchedCards.has(card.id) || card.revealed) {
-      return;
+  adjustCardsBasedOnScreenSize(): void {
+    const screenWidth = window.innerWidth;
+
+    let cardCount: number;
+    if (screenWidth < 600) {
+      cardCount = 12;
+    } else {
+      cardCount = 20;
     }
 
-    card.revealed = true;
-    this.selectedCards.push(card);
+    this.initializeGame(cardCount);
+  }
 
-    if (this.selectedCards.length === 2) {
-      this.isProcessing = true;
-      this.checkMatch();
+  initializeGame(cardCount: number): void {
+    const selectedImages = this.images.slice(0, cardCount / 2);
+    const pairs = selectedImages.flatMap((image, index) => [
+      { id: index * 2, image, flipped: false, matched: false },
+      { id: index * 2 + 1, image, flipped: false, matched: false },
+    ]);
+
+    this.cards = this.shuffleArray(pairs);
+    this.flippedCards = [];
+  }
+
+  shuffleArray(array: ICard[]): ICard[] {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
+  onCardClick(card: ICard): void {
+    if (this.isBoardLocked || card.flipped || card.matched) return;
+
+    card.flipped = true;
+    this.flippedCards.push(card);
+
+    if (this.flippedCards.length === 2) {
+      this.checkForMatch();
     }
   }
 
-  checkMatch() {
-    const [first, second] = this.selectedCards;
+  checkForMatch(): void {
+    const [card1, card2] = this.flippedCards;
+    this.isBoardLocked = true;
 
-    if (first.imageName === second.imageName) {
-      this.matchedCards.add(first.id);
-      this.matchedCards.add(second.id);
+    if (card1.image === card2.image) {
+      card1.matched = true;
+      card2.matched = true;
     } else {
       setTimeout(() => {
-        first.revealed = false;
-        second.revealed = false;
+        card1.flipped = false;
+        card2.flipped = false;
       }, 1000);
     }
 
-    this.selectedCards = [];
-    this.isProcessing = false;
+    setTimeout(() => {
+      this.flippedCards = [];
+      this.isBoardLocked = false;
+    }, 1000);
   }
 }

@@ -1,15 +1,18 @@
-<p>memory-game works!</p>
-<div class="game-board">
-    @for(card of cards; track card.id) {
-        <div
-            class="grid grid-cols-4 sm:grid-cols-5 gap-4"
-            [class.revealed]="card.revealed || matchedCards.has(card.id)"
-            (click)="selectCard(card)">
-            @if(card.revealed || matchedCards.has(card.id)) {
-                <img [src]="'assets/images/cards/' + card.imageName" alt="card" />
-            } @else {
-                <div class="card-back"></div>
-            }
-        </div>
-    }
+<div class="m-3 flex items-center justify-between">
+  <h3>Memory Card</h3>
+  <button mat-flat-button>New Game</button>
+</div>
+<div class="flex flex-wrap game-container">
+  @for(card of cards; track card.id) {
+  <div
+    class="card"
+    [ngClass]="{ flipped: card.flipped, matched: card.matched }"
+    (click)="onCardClick(card)"
+  >
+    <div class="card-front">
+      <img [src]="card.image" alt="Card Image" />
+    </div>
+    <div class="card-back"></div>
+  </div>
+  }
 </div>

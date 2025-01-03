@@ -11,13 +11,10 @@
 </section>
 <section class="body p-6">
   <ul class="flex flex-wrap gap-4">
-    @for (item of menuList; track item.id) {
-    <button
-      *ngIf="!item.hide"
-      mat-flat-button
-      [routerLink]="item.link">
+    @for (item of menuList; track item.id) { @if(!item.hide) {
+    <button mat-flat-button [routerLink]="item.link">
       {{ item.name }}
     </button>
-    }
+    } }
   </ul>
 </section>

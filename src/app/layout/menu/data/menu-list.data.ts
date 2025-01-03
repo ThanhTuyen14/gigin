@@ -1,5 +1,4 @@
-import { IMenu } from "../../../../models/common.interface";
-
+import { IMenu } from '../../../../models/common.interface';
 
 export const menuList: IMenu[] = [
   {
@@ -28,13 +27,8 @@ export const menuList: IMenu[] = [
     link: '/game',
   },
   {
-    id: 5,
-    name: 'My Job',
-    link: '/my-job',
-  },
-  {
     id: 6,
-    name: 'Contact Me',
-    link: '/contact',
+    name: 'About Me',
+    link: '/about-me',
   },
 ];
