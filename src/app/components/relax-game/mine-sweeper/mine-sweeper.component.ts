@@ -10,8 +10,8 @@ import { ICell } from '../../../../models/game.interface';
 })
 export class MineSweeperComponent {
   grid: ICell[][] = [];
-  rows: number = 10;
-  cols: number = 10;
+  rows: number = 12;
+  cols: number = 12;
   mines: number = 15;
   gameOver: boolean = false;
   gameWon: boolean = false;

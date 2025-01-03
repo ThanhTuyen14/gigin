@@ -1,22 +1,23 @@
-<div class="game-container">
-  <div *ngFor="let row of grid; let i = index" class="row">
-    <div
-      *ngFor="let cell of row; let j = index"
-      class="cell"
-      [ngClass]="{ revealed: cell.revealed, mine: cell.mine }"
-      (click)="revealCell(i, j)"
-    >
-      {{
-        cell.revealed && !cell.mine
-          ? cell.adjacentMines > 0
-            ? cell.adjacentMines
+<section class="text-center mine-sweeper">
+  <div class="game-container">
+    @for (row of grid; track row; let i = $index) {
+    <div class="row">
+      @for (cell of row; track cell; let j = $index) {
+      <div
+        class="cell"
+        [ngClass]="{ revealed: cell.revealed, mine: cell.mine }"
+        (click)="revealCell(i, j)"
+      >
+        {{
+          cell.revealed && !cell.mine
+            ? cell.adjacentMines > 0
+              ? cell.adjacentMines
+              : ""
             : ""
-          : ""
-      }}
+        }}
+      </div>
+      }
     </div>
+    }
   </div>
-</div>
-<div class="status">
-  <p *ngIf="gameOver">Game Over! {{ message }}</p>
-  <p *ngIf="gameWon">You Win!</p>
-</div>
+</section>
